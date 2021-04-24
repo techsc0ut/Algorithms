@@ -1,2 +1,2 @@
 # Algorithms
-This Repository Includes , Implementations of Various Important Algorithms , Problems in JAVA .
+This Repository Includes , JAVA Implementations of Various Important Algorithms , and Solutions to High Rated Problems in Placements Coding Rounds.
