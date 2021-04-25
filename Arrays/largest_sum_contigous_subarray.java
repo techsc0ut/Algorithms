@@ -27,15 +27,23 @@ class Solution{
     int maxSubarraySum(int arr[], int n){
         int org=Integer.MIN_VALUE;
         int cur=0;
+	int left=0;
+	int right=0;
+	int minus=-1;    
         for(int i=0;i<n;i++){
             cur+=arr[i];
             if(org<cur){
                 org=cur;
+		left=minus+1;
+		right=i;
             }
             if(cur<0){
                 cur=0;
+		minus=i;    
             }
         }
+        System.out.print(left+" "+right);      // Left and Right index of the Subarray .
+        System.out.println("");
         return org;
     }
 }
