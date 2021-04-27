@@ -1,31 +1,37 @@
+import java.util.*;
 public class Merge_sort{
 	public static void mergesort(int [] ar,int start,int end){
-		if(end-start<2){
-			return;
+		if(start<end){
+			int mid=(start+end)/2;
+			mergesort(ar,start,mid);
+			mergesort(ar,mid+1,end);
+			merge(ar,start,mid,end);
 		}
-		int mid=(start+end)/2;
-		mergesort(ar,start,mid);
-		mergesort(ar,mid,end);
-		merge(ar,start,mid,end);
 	}	
 	public static void merge(int [] ar,int start,int mid,int end){
-		if(ar[mid-1]<=ar[mid]){
-			return;
+		int i=0,j=0;
+		int index=start;
+		int [] left=Arrays.copyOfRange(ar,start,mid+1);
+		int [] right=Arrays.copyOfRange(ar,mid+1,end+1);
+		while(i<left.length && j<right.length){
+			if(left[i]>right[j]){
+				ar[index++]=right[j++];
+			}else{
+				ar[index++]=left[i++];
+			}
 		}
-		int i=start;
-		int j=mid;
-		int tmpindex=0;
-		int [] tmp=new int[end-start];
-		while(i<mid && j<end)//HERE WE HAVE NOT USE "<=" SINCE IN LEFT ARRAY HAS THE LAST INDEX "MID-1" AND THE SECOND ARRAY HAS THE END INDEX "END-1"
-		{	
-			tmp[tmpindex++]=(ar[i]<=ar[j])?ar[i++]:ar[j++];
+		while(i<left.length){
+			ar[index++]=left[i++];
 		}
-		System.arraycopy(ar, i, ar, start+tmpindex,mid-i);
-		System.arraycopy(tmp,0,ar,start,tmpindex);
+		while(j<right.length){
+			ar[index++]=right[j++];
+		}
+		
+		
 	}
 	public static void main (String[] args){
 		int ar[]= {12,123,1212,212,2121};
-		mergesort(ar,0,ar.length);
+		mergesort(ar,0,ar.length-1);
 		for(int i=0;i<ar.length;i++){
 			System.out.print(ar[i]+" ");
 		}
