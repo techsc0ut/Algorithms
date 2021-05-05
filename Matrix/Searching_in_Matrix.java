@@ -1,3 +1,6 @@
+
+//Solution-1
+// O(logC+logR)
 class Solution {
     public boolean searchMatrix(int[][] matrix, int target) {
         if(matrix.length==1 && matrix[0].length==1){
@@ -62,3 +65,28 @@ class Solution {
         return false;
     }
 }
+
+
+// Solution-2
+// One more solution :
+// O(n+m)
+class Solution {
+    public boolean searchMatrix(int[][] m, int target) {
+        int row=0;
+        int col=m[0].length-1;
+        while(row<m.length && col>=0){
+            if(m[row][col]==target){
+                return true;
+            }else if(m[row][col]>target){
+                col--;
+            }else{
+                row++;
+            }   
+        }  
+        return false;
+    }
+}
+
+
+
+
