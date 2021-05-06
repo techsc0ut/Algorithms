@@ -21,6 +21,7 @@ class ABC {
 	}
 	public static void rotate90(int m[][]){
 	    int N=m.length;
+	    // Step 1: Transpose of the original Matrix .
 	    for(int i=0;i<N;i++){
 	        for(int j=i;j<N;j++){
 	            int temp=m[i][j];
@@ -28,6 +29,7 @@ class ABC {
 	            m[j][i]=temp;
 	        }
 	    }
+	    // Step 2: Using the two poiters approach we will swap , all the top elements with the respective bottom elements .
 	    for(int i=0;i<N;i++){
 	        int a=0;
 	        int b=N-1;
