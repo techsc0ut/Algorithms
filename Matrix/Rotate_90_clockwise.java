@@ -3,6 +3,8 @@ class Solution {
     public void rotate(int[][] m) {
         int r=m.length;
         int c=r;
+        
+        // First Step : Taking Transpose of the original matrix .
         for(int i=0;i<r;i++){
             for(int j=i;j<r;j++){
                 int temp=m[i][j];
@@ -10,6 +12,8 @@ class Solution {
                 m[j][i]=temp;
             }
         }
+        
+        // Second Step : Using the two pointers approach , we will swap the elements at the start with the respective ends elements .
         for(int i=0;i<r;i++){
             int a=0;
             int b=r-1;
