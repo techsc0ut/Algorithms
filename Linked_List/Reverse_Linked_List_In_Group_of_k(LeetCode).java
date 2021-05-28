@@ -5,7 +5,7 @@ class Solution {
             ind++;
             c=c.next;
         }
-        if(ind<k){
+        if(ind<k){// Check if the remaining elements have size greater or equal to k , then only reverse , otherwise keep as it is .
             return head;
         }
         ListNode Curr=head,nxt=null,prev=null;
