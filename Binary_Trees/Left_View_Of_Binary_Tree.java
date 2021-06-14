@@ -1,3 +1,4 @@
+// Approach is , we need 1st element of every Level .
 class Tree{
     ArrayList<Integer> leftView(Node root){
         ArrayList<Integer> A=new ArrayList<>();
