@@ -10,16 +10,8 @@ class GfG {
             }
         }
         int c1=0,c2=0;
-        int x1=i-1;
-        while(A.get(x1).data!=a){
-            c1++;
-            x1++;
-        }
-        int x2=i-1;
-        while(B.get(x2).data!=b){
-            c2++;
-            x2++;
-        }
+        int x1=i-1
+        c1=A.size()-x1-1;c2=B.size()-x1-1;
         return c1+c2;
     }
     static boolean func(Node root,int n,ArrayList<Node> A){
