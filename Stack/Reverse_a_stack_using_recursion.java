@@ -18,7 +18,7 @@ class Solution{
               int a=S.peek();
               S.pop();
               reverse();
-              Insert_at_bottom(a);
+              Insert_at_Bottom(a);
           }
      }
 }
