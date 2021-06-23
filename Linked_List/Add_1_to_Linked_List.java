@@ -1,44 +1,31 @@
 class Solution{
     public static Node addOne(Node head){ 
-        if(head.next==null){
-            head.data=head.data+1;
-            return head;
-        }
-        head=rev(head);
-        int d=head.data+1;
-        if(d>9){
-            head.data=0;
-            Node curr=head.next;
-            Node prv=null;
-            while(curr!=null){
-                if(curr.data+1>9){
-                    curr.data=0;    
+        Node revH=rev(head);
+        Node H=revH;
+        while(H!=null){
+            if(H.data+1<=9){
+                H.data=H.data+1;
+                break;
+            }else{
+                H.data=0;
+                if(H.next==null){
+                    Node x=new Node(1);
+                    x.next=null;
+                    H.next=x;break;
                 }else{
-                    curr.data=curr.data+1;
-                    head=rev(head);
-                    return head; 
+                    H=H.next;
                 }
-                prv=curr;
-                curr=curr.next;
             }
-            Node one=new Node(1);
-            prv.next=one;
-            head=rev(head);
-            return head;
-        }else{
-            head.data=head.data+1;
-            head=rev(head);
-            return head;
         }
+        return rev(revH);
     }
     static Node rev(Node head){
-        Node prev=null,nxt=null,curr=head;
+        Node curr=head,prv=null,nxt=null;
         while(curr!=null){
             nxt=curr.next;
-            curr.next=prev;
-            prev=curr;
+            curr.next=prv;
+            prv=curr;
             curr=nxt;
-        }
-        return prev;
+        }return prv;
     }
 }
