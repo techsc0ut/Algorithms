@@ -1,23 +1,16 @@
 class Solution{
-    public Node removeDuplicates(Node head) {
-         if(head==null || head.next==null){
-             return head;
-         }
-         Set<Integer> S=new HashSet();
-         Node curr=head;
-         Node nxt=head.next;
-         S.add(curr.data);
-         while(curr!=null && nxt!=null){
-            if(S.contains(nxt.data)){
-                Node n=nxt.next;
-                curr.next=n;
-                nxt=n;
+    public Node removeDuplicates(Node head){
+        HashSet<Integer> H=new HashSet<>();
+        Node curr=head,prev=null;
+        while(curr!=null){
+            if(H.contains(curr.data)){
+               prev.next=curr.next;
+               curr=curr.next;
             }else{
-                curr=curr.next;
-                nxt=nxt.next;
-                S.add(curr.data);
-            }     
-         }
-         return head;
+               prev=curr;
+               H.add(curr.data);
+               curr=curr.next;
+            }
+        }return head;
     }
 }
