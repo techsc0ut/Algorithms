@@ -1,6 +1,9 @@
 class Solution{
     void buildHeap(int arr[], int n){
         int pv=n/2-1;
+        //This is the index to last non-leaf node and the fact that 
+        //the leaf nodes need not to be heapified as they already follow the heap property. 
+        //Also, the array representation of the complete binary tree contains the level order traversal of the tree.
         for(int i=pv;i>=0;i--){
             heapify(arr,n,i);
         }
