@@ -1,5 +1,5 @@
+/* In all cases , Time Complexity is O(n^2) */
 import java.io.*;
-
 class GFG {
 	public static void main (String[] args) {
 		int ar[]={23,211234,-100,321,555};
