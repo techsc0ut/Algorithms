@@ -1,37 +1,31 @@
 class GfG{
     Node flatten(Node root){
-	    if(root==null){
-	        return null;
-	    }
-	    else if(root.next==null){
-	        return root;
-	    }
-	    Node curr=root,nxt=root.next;
-	    while(curr!=null && nxt!=null){
-	        curr=Merge(curr,nxt);
-	        root=root.next;
-	        nxt=root.next;
-	    }
-	    return curr;
+        Node Head=null;
+        while(root!=null){
+            Head=Merge(Head,root);
+            root=root.next;
+        }
+        return Head;
     }
-    public Node Merge(Node x,Node y){
-        Node head=new Node(-1);Node temp=head;
-        while(x!=null && y!=null){
-            if(x.data>y.data){
-                head.bottom=y;
-                y=y.bottom;
-                head=head.bottom;
+    static Node Merge(Node r1, Node r2){
+        Node temp=new Node(-1);
+        Node head=temp;
+        while(r1!=null && r2!=null){
+            if(r1.data>r2.data){
+                temp.bottom=r2;
+                r2=r2.bottom;
             }else{
-                head.bottom=x;
-                x=x.bottom;
-                head=head.bottom;
+                temp.bottom=r1;
+                r1=r1.bottom;
             }
+            temp=temp.bottom;
         }
-        if(x!=null){
-            head.bottom=x;
+        if(r1!=null){
+            temp.bottom=r1;
         }
-        if(y!=null){
-            head.bottom=y;
-        }return temp.bottom;
+        if(r2!=null){
+            temp.bottom=r2;
+        }
+        return head.bottom;
     }
 }
