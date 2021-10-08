@@ -1,46 +1,35 @@
-class Solution{
-    boolean isPalindrome(Node head){
-        if(head.next==null){
+class Solution {
+    public boolean isPalindrome(ListNode head) {
+        if(head==null || head.next==null){
             return true;
-        }
-        if(head.next.next==null){
-            if(head.data==head.next.data){
-                return true;
-            }return false;
-        }
-        Node slow=head,prev=slow,fast=head;slow=slow.next;fast=fast.next.next;
+        } 
+        ListNode slow = head , fast = head , prev = null ;
         while(fast!=null && fast.next!=null){
-            prev=slow;fast=fast.next.next;slow=slow.next;
-        }
-        if(fast==null){//even list
-            prev.next=null;
-            Node a=rev(head);
-            while(a!=null && slow!=null){
-                if(a.data!=slow.data){
-                    return false;
-                }
-                a=a.next;slow=slow.next;
-            }return true;
-        }else{//odd list
-            prev.next=null;
+            prev=slow;
             slow=slow.next;
-            Node a=rev(head);
-            while(a!=null && slow!=null){
-                if(a.data!=slow.data){
-                    return false;
-                }
-                a=a.next;slow=slow.next;
-            }return true;
+            fast=fast.next.next;
         }
-    }  
-    static Node rev(Node head){
-        Node curr=head,nxt=null,prev=null;
+         ListNode r=null;
+        if(fast==null){ // even
+            r=rev(slow);
+        }else{ //odd
+            r=rev(slow.next);
+        }
+        while(head!=null && r!=null){
+            if(head.val!=r.val){
+                return false;
+            }
+            head=head.next;
+            r=r.next;
+        }return true;
+    }
+    static ListNode rev(ListNode head){
+        ListNode curr=head , prev=null , nxt=null;
         while(curr!=null){
             nxt=curr.next;
             curr.next=prev;
             prev=curr;
-            curr=nxt;      
-            
+            curr=nxt;
         }return prev;
     }
 }
