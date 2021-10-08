@@ -1,25 +1,32 @@
 class Solution {
     public ListNode reverseKGroup(ListNode head, int k) {
-        int ind=0;ListNode c=head;
-        while(c!=null){
-            ind++;
-            c=c.next;
-        }
-        if(ind<k){// Check if the remaining elements have size greater or equal to k , then only reverse , otherwise keep as it is .
+        if(k==1){
             return head;
-        }
-        ListNode Curr=head,nxt=null,prev=null;
-        int i=0;
-        while(i<k && Curr!=null){
-            nxt=Curr.next;
-            Curr.next=prev;
-            prev=Curr;
-            Curr=nxt;
+        }        
+        ListNode curHead=head;
+        ListNode varHead=curHead;
+        int i=1;
+        while(i!=k && curHead!=null){
+            curHead=curHead.next;
             i++;
         }
-        if(nxt!=null){
-            head.next=reverseKGroup(nxt,k);
+        if(curHead==null){
+            return head;
+        }else{
+            ListNode nxt=curHead.next;
+            curHead.next=null;
+            ListNode rHead=rev(varHead);
+            varHead.next=reverseKGroup(nxt,k);
+            return rHead;
         }
-        return prev;
+    }
+    static ListNode rev(ListNode head){
+        ListNode curr=head , prev=null , nxt=null ;
+        while(curr!=null){
+            nxt=curr.next;
+            curr.next=prev;
+            prev=curr;
+            curr=nxt;
+        }return prev;
     }
 }
