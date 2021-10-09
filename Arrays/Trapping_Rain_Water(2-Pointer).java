@@ -1,25 +1,25 @@
-class Solution{
-    static int trappingWater(int arr[], int n) {
-        int lmax = arr[0], rmax = arr[n-1] ;
-        int low = 0, high = n-1 ;
-        int result = 0;
-        while(low<high){
-            if(arr[low]<arr[high]){
-                if(arr[low]>lmax){
-                    lmax=arr[low];
+class Solution {
+    public int trap(int[] height) {
+        int res = 0;
+        int len=height.length;
+        int i = 0 , j = len - 1;
+        int lmax = 0 , rmax = 0 ;
+        while(i <= j){
+            if(height[i] <= height[j]){ 
+                if(height[i] > lmax){
+                    lmax = height[i];
                 }else{
-                    result+=(lmax-arr[low]);
-                }
-                low++;
+                    res += lmax - height[i];   
+                }                             
+                i++;
             }else{
-                if(arr[high]>rmax){
-                    rmax=arr[high];
+                if(height[j] > rmax){
+                    rmax = height[j];
                 }else{
-                    result+=(rmax-arr[high]);
+                    res += rmax - height[j];
                 }
-                high--;
+                j--;
             }
-        }return result;
-    } 
+        }return res;
+    }
 }
-
