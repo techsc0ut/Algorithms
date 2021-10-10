@@ -1,33 +1,29 @@
 class Solution {
     public static int maxMeetings(int start[], int end[], int n){
-        if(n==1){
-            return 1;
-        }
-        temp [] t=new temp[n];
+        Meet[] meet=new Meet[n];
         for(int i=0;i<n;i++){
-            t[i]=new temp(start[i],end[i]);
+            meet[i]=new Meet(start[i],end[i]);
         }
-        Arrays.sort(t,new comp());
+        Arrays.sort(meet);
         int count=1;
-        temp prev=t[0];
+        int x=meet[0].e;
         for(int i=1;i<n;i++){
-            if(t[i].s>prev.e){
+            if(meet[i].s>x){
                 count++;
-                prev=t[i];
+                x=meet[i].e;
             }
-        }return count;
+        }
+        return count;
     }
 }
-class temp{
+class Meet implements Comparable<Meet>{
     int s;
     int e;
-    temp(int ss,int ee){
-        this.s=ss;
-        this.e=ee;
+    Meet(int _s,int _e){
+        this.s=_s;
+        this.e=_e;
     }
-}
-class comp implements Comparator<temp>{
-    public int compare(temp t1,temp t2){
-        return t1.e-t2.e;
+    public int compareTo(Meet a){
+        return this.e-a.e;
     }
 }
