@@ -1,30 +1,29 @@
 class Solution{
     int[] JobScheduling(Job arr[], int n){
-        Arrays.sort(arr,new comp());
-        int maxCap=Integer.MIN_VALUE;
+        Arrays.sort(arr,(a,b)->(b.profit-a.profit));
+        int max=0;
         for(int i=0;i<n;i++){
-            maxCap=Math.max(maxCap,arr[i].deadline);
+            if(max<arr[i].deadline){
+                max=arr[i].deadline;
+            }
         }
-        int cap[]=new int[maxCap];
-        Arrays.fill(cap,-1);int profit=0,count=0;
+        int profit=0;
+        int count=0;
+        int res[]=new int[max+1];
+        Arrays.fill(res,-1);
         for(int i=0;i<n;i++){
-            for(int j=arr[i].deadline-1;j>=0;j--){
-                if(cap[j]==-1){
+            for(int j=arr[i].deadline;j>0;j--){
+                if(res[j]==-1){
                     count++;
-                    cap[j]=0;
                     profit+=arr[i].profit;
+                    res[j]++;
                     break;
                 }
             }
         }
-        int ans[]=new int[2];
-        ans[0]=count;
-        ans[1]=profit;
-        return ans;
-    }
-}
-class comp implements Comparator<Job>{
-    public int compare(Job J1,Job J2){
-        return J2.profit-J1.profit;
+        int Res[]=new int[2];
+        Res[0]=count;
+        Res[1]=profit;
+        return Res;
     }
 }
