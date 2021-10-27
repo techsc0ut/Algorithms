@@ -1,36 +1,36 @@
 class Solution{
     static ArrayList<Integer> topView(Node root){
-        ArrayList<Integer> A=new ArrayList<>();
-        TreeMap<Integer,Integer> T=new TreeMap<Integer,Integer>();
+        TreeMap<Integer,Integer> Ar=new TreeMap<>();
         Queue<temp> Q=new LinkedList<>();
         Q.add(new temp(root,0));
         while(!Q.isEmpty()){
-            temp x=Q.remove();
-            Node c=x.n;
-            int h=x.L;
-            if(T.get(h)==null){
-                T.put(h,c.data);
+            temp t=Q.poll();
+            Node n=t.n;
+            int l=t.l;
+            Integer a=Ar.get(l);
+            if(a==null){
+                a=n.data;
+                Ar.put(l,a);
             }
-            if(c.left!=null){
-                Q.add(new temp(c.left,h-1));
+            if(n.left!=null){
+                Q.offer(new temp(n.left,l-1));
             }
-            if(c.right!=null){
-                Q.add(new temp(c.right,h+1));
+            if(n.right!=null){
+                Q.offer(new temp(n.right,l+1));
             }
         }
-        for(Map.Entry<Integer,Integer> entry : T.entrySet()) {
-            Integer value = entry.getValue();
-            A.add(value);
+        ArrayList<Integer> Res=new ArrayList<>();
+        for(Integer x: Ar.values()){
+            Res.add(x);
         }
-        return A;
+        return Res;
     }
 }
 class temp{
     Node n;
-    int L;
-    temp(){}
-    temp(Node nn,int LL){
-        this.n=nn;
-        this.L=LL;
+    int l;
+    temp(Node _n,int _l){
+        this.n=_n;
+        this.l=_l;
     }
 }
