@@ -1,22 +1,25 @@
-class Solution{
-    static ArrayList <Integer> levelOrder(Node node){
-        ArrayList<Integer> A=new ArrayList();
-        Queue<Node> Q=new LinkedList();
-        func(node,A,Q);
-        return A;
-    }
-    static void func(Node node,ArrayList<Integer> A,Queue<Node> Q){
-       Q.add(node);
-       while(!Q.isEmpty()){
-           Node p=Q.remove();
-           A.add(p.data);
-           if(p.left!=null){
-               Q.add(p.left);
-           }
-           if(p.right!=null){
-               Q.add(p.right);
-           }
-       }
-       return ;
+class Solution {
+    public List<List<Integer>> levelOrder(TreeNode root) {
+        List<List<Integer>> Lst=new ArrayList<>();
+        if(root==null){
+            return Lst;
+        }
+        Queue<TreeNode> Q=new LinkedList<>();
+        Q.offer(root);
+        while(!Q.isEmpty()){
+            List<Integer> L=new ArrayList<>();
+            int size=Q.size();
+            for(int i=0;i<size;i++){
+                TreeNode n=Q.poll();
+                L.add(n.val);
+                if(n.left!=null){
+                    Q.add(n.left);
+                }
+                if(n.right!=null){
+                    Q.add(n.right);
+                }
+            }
+            Lst.add(L);
+        }return Lst;
     }
 }
