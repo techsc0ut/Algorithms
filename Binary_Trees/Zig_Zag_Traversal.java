@@ -1,53 +1,30 @@
-class GFG{
-	    ArrayList<Integer> zigZagTraversal(Node root){
-	    ArrayList<Integer> A=new ArrayList<>();
-	    TreeMap<Integer,ArrayList<Integer>> T=new TreeMap<>();
-	    Queue<temp> Q=new LinkedList<>();
-	    Q.add(new temp(root,0));
-	    while(!Q.isEmpty()){
-	        temp x=Q.remove();
-	        Node c=x.r;
-	        int H=x.h;
-	        ArrayList<Integer> At=T.get(H);
-	        if(At==null){
-	            At=new ArrayList<Integer>();
-	            At.add(c.data);
-	            T.put(H,At);
-	        }
-	        else{
-	            At.add(c.data);
-	        }
-	        if(c.left!=null){
-	            Q.add(new temp(c.left,H+1));
-	        }
-	        if(c.right!=null){
-	            Q.add(new temp(c.right,H+1));
-	        }
-	    }
-	    int i=0;
-	    for(ArrayList<Integer> t:T.values()){
-	        if(i%2==0){
-	            for(int x:t){
-	                A.add(x);
-	            }
-	        }else{
-	            Collections.reverse(t);
-	             for(int x:t){
-	                A.add(x);
-	            }
-	        }
-	        i++;
-	    }
-	    return A;
-	}
-	
-}
-class temp{
-    Node r;
-    int h;
-    temp(){}
-    temp(Node rr,int hh){
-        this.r=rr;
-        this.h=hh;
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> Res=new ArrayList<>();
+        if(root==null){
+            return Res;
+        }
+        Queue<TreeNode> Q=new LinkedList<>();
+        Q.add(root);
+        int ind=0;
+        while(!Q.isEmpty()){
+            List<Integer> Lst=new ArrayList<>();
+            int size=Q.size();
+            for(int i=0;i<size;i++){
+                TreeNode t=Q.poll();
+                Lst.add(t.val);
+                if(t.left!=null){
+                    Q.add(t.left);
+                }
+                if(t.right!=null){
+                    Q.add(t.right);
+                }
+            }
+            if(ind%2==1){
+                Collections.reverse(Lst);
+            }
+            ind++;
+            Res.add(Lst);
+        }return Res;
     }
 }
