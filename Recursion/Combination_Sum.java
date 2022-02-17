@@ -1,20 +1,20 @@
 class Solution {
+    static List<List<Integer>> Res;
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> Res=new ArrayList<>();
-        func(Res,new ArrayList<>(),target,candidates,0);
+        Res=new ArrayList<>();
+        func(candidates,target,0,new ArrayList<>());
         return Res;
     }
-    static void func(List<List<Integer>> Res,List<Integer> ds,int target,int [] candidates,int ind){
-        if(ind==candidates.length){
-            if(target==0){
-                Res.add(new ArrayList<>(ds));
-            }return ;
+    public void func(int[] candidates, int target, int index, List<Integer> Lst){
+        if(target==0){
+            Res.add(new ArrayList<>(Lst));
+            return;
         }
-        if(candidates[ind]<=target){
-            ds.add(candidates[ind]);
-            func(Res,ds,target-candidates[ind],candidates,ind);
-            ds.remove(ds.size()-1);
-        }
-        func(Res,ds,target,candidates,ind+1);
+        if(index>=candidates.length || target<0) return;
+        for(int i=index;i<candidates.length;i++){
+            Lst.add(candidates[i]);
+            func(candidates,target-candidates[i],i,Lst);
+            Lst.remove(Lst.size()-1);
+        }return;
     }
 }
