@@ -1,23 +1,28 @@
 class Solution {
     public ListNode rotateRight(ListNode head, int k) {
-        if(head==null || head.next==null || k==0){
-            return head;
-        }    
-        ListNode cur=head;
-        int len=1;
-        while(cur.next!=null){
-            len++;
-            cur=cur.next;
+        if(head==null || head.next==null) return head;
+        int size=0;
+        ListNode temp=head;
+        while(temp!=null){
+            temp=temp.next;
+            size++;
         }
-        cur.next=head;
-        k=k%len;
-        k=len-k;
-        while(k!=0){
-            cur=cur.next;
-            k--;
+        int iter=k%size;
+        ListNode finalHead=head;
+        for(int i=0;i<iter;i++){
+            finalHead=func(finalHead);
         }
-        head=cur.next;
-        cur.next=null;
-        return head;
+        return finalHead;
+    }
+    static ListNode func(ListNode head){
+        if(head==null || head.next==null) return head;
+        ListNode temp=head;
+        while(head.next.next!=null) {
+            head=head.next;
+        }
+        ListNode NewHead=head.next;
+        head.next=null;
+        NewHead.next=temp;
+        return NewHead;
     }
 }
