@@ -1,45 +1,37 @@
-class Solution {
-    //Function to find minimum number of pages.
-    public static int findPages(int[]a,int n,int m){
-        // More Students then Books , return -1 
-        // Since each Each student has to be allocated at least one book.
-        if(n<m){
+class Solution{
+    public static int findPages(int[]nums,int n,int m){
+        if(m>n){
             return -1;
         }
-        int sum=0;
-        for(int i=0;i<n;i++){
-            sum+=a[i];
+        int lo=Integer.MIN_VALUE;
+        int high=0;
+        for(int x:nums){
+            high+=x;
+            lo=Math.max(lo,x);
         }
-        // Min Books will be 0 and Max Books will be total Books . 
-        int start=0,end=sum,ans=Integer.MAX_VALUE;
-        while(start<=end){
-            int mid=(start+end)/2;
-            if(IsPossible(a,n,m,mid)){
-                ans=Math.min(ans,mid);
-                end=mid-1;
+        int ans=-1;
+        while(lo<=high){
+            int mid=(lo+high)>>1;
+            if(check(nums,mid,m)){
+                high=mid-1;
+                ans=mid;
             }else{
-                start=mid+1;// 
+                lo=mid+1;
             }
-        }
-        return ans;
+        }return ans;
     }
-    public static boolean IsPossible(int ar[],int n,int m,int mid){
-        int cursum=0;
-        int stud=1;
-        for(int i=0;i<n;i++){
-            if(ar[i]>mid){
-                return false;
+    static boolean check(int nums[], int val, int m){
+        int count=1;
+        int sum=0;
+        for(int i=0;i<nums.length;i++){
+            sum+=nums[i];
+            if(sum>val){
+                sum=nums[i];
+                count++;
             }
-            if(ar[i]+cursum>mid){
-                stud++;
-                cursum=ar[i];
-                if(stud>m){
-                    return false;
-                }
-            }else{
-                cursum+=ar[i];
-            }
-        }        
-        return true;
+        }
+        if(count<=m){
+            return true;
+        }return false;
     }
 }
