@@ -44,7 +44,7 @@ class Solution {
                     Res.add(L);
                 }
             }
-            else if(x!=par[u]){ // If already visited but not considering child to parent edge
+            else if(x!=par[u]){ // If already visited but not considering child to parent edge, also this will be a back edge.
                 low[u]=Math.min(low[u],des[x]);
             }
         }
