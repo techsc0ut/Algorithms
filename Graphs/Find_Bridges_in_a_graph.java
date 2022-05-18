@@ -17,8 +17,8 @@ class Solution {
             Adj.get(b).add(a);
         }
         int par[]=new int[n]; // here par[i] represent the parent of ith node .
-        int low[]=new int[n]; 
-        int des[]=new int[n];
+        int low[]=new int[n]; // here low[i] represents the lowest discovery time of the node accessible from ith node.
+        int des[]=new int[n]; // here des[i] represents the discovery time of ith node.
         Arrays.fill(par,-1);
         Arrays.fill(low,-1);
         Arrays.fill(des,-1);
