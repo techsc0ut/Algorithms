@@ -1,4 +1,4 @@
-// Possible for only Directed Acyclic Graphs .
+// Kahn's Algorithm for Topological Sorting, Possible for only Directed Acyclic Graphs .
 class Solution{ 
     static int[] topoSort(int V,ArrayList<ArrayList<Integer>> adj){
         int Top[]=new int[V];
