@@ -1,49 +1,42 @@
 class Solution{
-    static int[] dijkstra(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj,int S){
-        int dist[]=new int[V];
-        initialize(dist,V);
-        Set<Integer> St=new HashSet<>();
-        PriorityQueue<vertex> P=new PriorityQueue<vertex>();
-        dist[S]=0;
-        P.add(new vertex(S,0));
-        while(!P.isEmpty()){
-            vertex x=P.remove();
-            if(!St.contains(x.val)){
-                St.add(x.val);
-                relaxation(x,adj,P,St,dist);
-            }
-        }return dist;
-    }
-    static void relaxation(vertex x,ArrayList<ArrayList<ArrayList<Integer>>> adj,
-    PriorityQueue<vertex> P, Set<Integer> S,int dist[]){
-        ArrayList<ArrayList<Integer>> A=adj.get(x.val);
-        for(int i=0;i<A.size();i++){
-            int v=A.get(i).get(0);
-            int wt=A.get(i).get(1);
-            if(!S.contains(v)){
-                if(dist[v]>dist[x.val]+wt){
-                    dist[v]=dist[x.val]+wt;
-                } 
-                P.add(new vertex(v,dist[v]));
-            }
-        }
-    }
-    static void initialize(int dist[],int V){
+    static int[] dijkstra(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj, int S){
+        int dis[]=new int[V];
         for(int i=0;i<V;i++){
-            dist[i]=Integer.MAX_VALUE;
+            dis[i]=Integer.MAX_VALUE;
         }
+        Set<Integer> St=new HashSet<>();
+        PriorityQueue<Vertex> PQ=new PriorityQueue<>();
+        dis[S]=0;
+        PQ.add(new Vertex(S,0));
+        while(!PQ.isEmpty()){
+            Vertex curr=PQ.poll();
+            if(!St.contains(curr.val)){
+                St.add(curr.val);
+                ArrayList<ArrayList<Integer>> neighbors=adj.get(curr.val);
+                for(ArrayList<Integer> Edge:neighbors){
+                    int val=Edge.get(0);
+                    int wt=Edge.get(1);
+                    if(!St.contains(val)){
+                        if(dis[val]>dis[curr.val]+wt){
+                            dis[val]=dis[curr.val]+wt;
+                            PQ.add(new Vertex(val,dis[val]));
+                        }    
+                    }
+                }
+            }
+        }
+        return dis;
     }
 }
-class vertex implements Comparable<vertex>{
+class Vertex implements Comparable<Vertex>{
     int val;
-    int cost;
-    vertex(int _val,int _cost){
-        this.cost=_cost;
+    int wt;
+    Vertex(int _val, int _wt){
         this.val=_val;
+        this.wt=_wt;
     }
-    @Override
-    public int compareTo(vertex V){
-        return this.cost-V.cost;
+    public int compareTo(Vertex e){
+        return this.wt-e.wt;
     }
 }
 
