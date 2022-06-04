@@ -1,54 +1,41 @@
 class Solution {
-    public List<List<String>> solveNQueens(int n) {
-        List<List<String>> Res=new ArrayList<>();
-        char [][]chess=new char[n][n];
-        for(char [] ar:chess){
-            Arrays.fill(ar,'.');
-        }
-        func(chess,0,Res);
-        return Res;
+    char [][] board;
+    List<List<String>> ans;
+    int n;
+    Set<Integer> col=new HashSet(), posDiag=new HashSet(), negDiag=new HashSet();
+    public List<List<String>> solveNQueens(int N) {
+        n=N;
+        board=new char[n][n];
+        ans=new ArrayList<>();
+        for(char[] x:board){
+            Arrays.fill(x,'.');
+        }func(0);
+        return ans;
     }
-    static void func(char [][]chess,int row,List<List<String>> Res){
-        if(row==chess.length){
-            put(chess,Res);
+    public void func(int r){
+        if(r==n){
+           List<String> res = new LinkedList<String>();
+            for(int i = 0; i < board.length; i++) {
+                String s = new String(board[i]);
+                res.add(s);
+            }
+            ans.add(res);
             return;
         }
-        for(int i=0;i<chess.length;i++){
-            if(isSafe(chess,row,i)){
-                chess[row][i]='Q';
-                func(chess,row+1,Res);
-                chess[row][i]='.';
+        for(int c=0;c<n;c++){
+            if(col.contains(c) || posDiag.contains(r+c) || negDiag.contains(r-c)){
+                continue;
             }
+            col.add(c);
+            posDiag.add(r+c);
+            negDiag.add(r-c);
+            board[r][c]='Q';
+            func(r+1);
+            // Below is the backtracking part
+            board[r][c]='.';
+            col.remove(c);
+            posDiag.remove(r+c);
+            negDiag.remove(r-c);
         }
-        
-    }
-    static void put(char [][]chess,List<List<String>> Res){
-        ArrayList<String> Ar=new ArrayList<>();
-        for(int i=0;i<chess.length;i++){
-            String s="";
-            for(int j=0;j<chess.length;j++){
-                s+=chess[i][j];
-            }
-            Ar.add(s);
-        }
-        Res.add(Ar);
-    }
-    static boolean isSafe(char [][]chess,int row,int col){
-        for(int i=row-1, j=col ;i>=0 ;i--){
-            if(chess[i][j]=='Q'){
-                return false;
-            }
-        }
-        for(int i=row-1,j=col-1;i>=0 && j>=0;i--,j--){
-            if(chess[i][j]=='Q'){
-                return false;
-            }
-        }
-        for(int i=row-1 ,j=col+1;i>=0 && j<chess.length;i--,j++){
-            if(chess[i][j]=='Q'){
-                return false;
-            }
-        }
-        return true;
     }
 }
