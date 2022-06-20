@@ -1,4 +1,4 @@
-/* O(N) Time and O(N) Space */
+/* O(NlogN) Time and O(N) Space */
 class Solution {
     public int minimumLengthEncoding(String[] words) {
         Arrays.sort(words,(a,b)->(b.length()-a.length()));
