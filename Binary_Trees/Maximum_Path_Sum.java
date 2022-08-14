@@ -1,20 +1,32 @@
 class Solution {
-    static int ans;
+    
+    int result;
+    
     public int maxPathSum(TreeNode root) {
-        ans=Integer.MIN_VALUE;
-        func(root);
-        return ans;
+        
+        result=Integer.MIN_VALUE;
+        
+        helper(root);
+        
+        return result;
+
     }
-    static int func(TreeNode root){
-        if(root==null){
-            return 0;
-        }        
-        int left=func(root.left);
-        int right=func(root.right);
-        int mlr=Math.max(left,right);
-        int case1=Math.max(root.val,root.val+mlr);// Straight Path where current node is included.
-        int case2=Math.max(case1,root.val+left+right);// When current node is the root, so include both left, right and current.
-        ans=Math.max(ans,case2);// Max So far
+    
+    public int helper(TreeNode root) {
+        
+        if(root==null) return 0;
+        
+        int left=helper(root.left);
+        int right=helper(root.right);
+        
+        int case1=Math.max(Math.max(left,right)+root.val,root.val);
+        
+        int case1and2=Math.max(case1, left+right+root.val);
+        
+        result=Math.max(result,case1and2);
+        
         return case1;
+        
     }
+    
 }
