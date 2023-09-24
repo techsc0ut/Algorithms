@@ -1,29 +1,50 @@
-class Solution{
-    double fractionalKnapsack(int W, Item arr[], int n){
-        Arrays.sort(arr,new comp());
-        double profit=0;
-        int curW=0;
-        for(int i=0;i<n;i++){
-            if(curW+arr[i].weight<=W){
-                curW=curW+arr[i].weight;
-                profit+=arr[i].value;
-            }else{
-                int rem=W-curW;
-                profit+=arr[i].value*((double)rem/arr[i].weight)*1.0;
-                break;
+class Solution {
+    
+    double fractionalKnapsack(int W, Item arr[], int n) {
+        
+        Arrays.sort(arr, new comp());
+        
+        double maxProfit = 0;
+        
+        for(Item i : arr){
+            
+            if(W > 0){
+                
+                if(W >= i.weight){
+                    
+                    maxProfit += i.value;
+                    W = W - i.weight;
+                    
+                }else{
+                    
+                    double currProfit = (double) (i.value / ((1.0) * i.weight)) * W;
+                    maxProfit += currProfit;
+                    W = 0;
+                    
+                }
+                
             }
+            
         }
-        return profit;
+        
+        return maxProfit;
+    
     }
 }
-class comp implements Comparator<Item>{
-    public int compare(Item a, Item b){
-        double aa=(double)a.value/a.weight;
-        double bb=(double)b.value/b.weight;
-        if(bb>aa){
+
+class comp implements Comparator<Item> {
+    
+    public int compare(Item a1, Item a2) {
+        
+        double a = (a1.value/((1.0) * a1.weight));
+        
+        double b = (a2.value/((1.0) * a2.weight));
+        
+        if(b > a){
+            
             return 1;
-        }else if(bb<aa){
-            return -1;
-        }return 0;
+        }     
+        
+        return -1;
     }
 }
